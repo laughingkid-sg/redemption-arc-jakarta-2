@@ -20,8 +20,8 @@ import {
 import { Scanner } from "@yudiel/react-qr-scanner";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
-import { IoIosArrowBack, IoIosInformationCircleOutline } from "react-icons/io";
-import { Note, Wallet } from "../page";
+import { IoIosArrowBack } from "react-icons/io";
+import { Wallet } from "../page";
 
 export default function WalletPage() {
   const router = useRouter();

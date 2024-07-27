@@ -5,6 +5,7 @@ import { IoIosInformationCircleOutline } from "react-icons/io";
 import { useWallets } from "@/_context/WalletContext";
 import { formatRupiah } from "@/_utils/formatter";
 import CameraIcon from "@/_components/CameraIcon";
+import { useRouter } from "next/navigation";
 
 
 export type Wallet = {
@@ -27,6 +28,7 @@ export default function Home() {
   const userName = "Sedaap Food Store";
   const accNumber = "3196368384";
   const { wallets, setWallets } = useWallets();
+  const router = useRouter();
 
   const isAllClose = wallets.reduce((acc, item) => {
       return acc && item.isActive == false;
@@ -96,7 +98,11 @@ export default function Home() {
             <Flex
               gap={4}
               w={"100%"}>
-              <Button w={"50%"}>Withdrawal</Button>
+              <Button
+                w={"50%"}
+                onClick={() => router.push("/withdrawal")}>
+                Withdrawal
+              </Button>
               <Button
                 w={"50%"}
                 colorScheme={isAllClose ? "green" : "red"}
@@ -116,7 +122,7 @@ export default function Home() {
                 <IoIosInformationCircleOutline />
               </Flex>
               <Flex>
-                To redeem your cash, select the withdrawal and present the QR code to our withdrawal
+                To redeem your cash, select withdrawal and present the QR code to our withdrawal
                 partners.
               </Flex>
             </Flex>
