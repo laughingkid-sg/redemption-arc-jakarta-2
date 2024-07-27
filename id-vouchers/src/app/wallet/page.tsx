@@ -11,12 +11,10 @@ import { IoIosArrowBack, IoIosInformationCircleOutline } from "react-icons/io";
 import { Suspense } from "react";
 
 export default function WalletPage() {
-  return <>
-  <Suspense fallback={<div>Loading...</div>}><Wallet /></Suspense>
-  </>
+  return <Suspense fallback={<div>Loading...</div>}><Wallet /></Suspense>
 }
 
-export function Wallet() {
+function Wallet() {
   const searchParams = useSearchParams();
   const router = useRouter();
 
