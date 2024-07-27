@@ -7,7 +7,7 @@ import { useWallets } from "@/_context/WalletContext";
 import { formatNumberWithLeadingZeros, formatRupiah } from "@/_utils/formatter";
 import { Flex, Heading, Button, Code, Divider, Text } from "@chakra-ui/react";
 import Head from "next/head";
-import { useRouter, useSearchParams } from "next/navigation";
+import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { IoIosArrowBack, IoIosInformationCircleOutline } from "react-icons/io";
 import QRCode from "react-qr-code";

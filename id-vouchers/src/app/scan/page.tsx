@@ -23,6 +23,7 @@ import { useState } from "react";
 import { IoIosArrowBack } from "react-icons/io";
 import { Wallet } from "../page";
 
+
 export default function WalletPage() {
   const router = useRouter();
   const toast = useToast();

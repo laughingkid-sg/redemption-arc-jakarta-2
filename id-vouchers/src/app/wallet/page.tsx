@@ -8,8 +8,15 @@ import { Flex, Heading, Button, Code, Divider, Text } from "@chakra-ui/react";
 import Head from "next/head";
 import { useRouter, useSearchParams } from "next/navigation";
 import { IoIosArrowBack, IoIosInformationCircleOutline } from "react-icons/io";
+import { Suspense } from "react";
 
-export default function Wallet() {
+export default function WalletPage() {
+  return <>
+  <Suspense fallback={<div>Loading...</div>}><Wallet /></Suspense>
+  </>
+}
+
+export function Wallet() {
   const searchParams = useSearchParams();
   const router = useRouter();
 
