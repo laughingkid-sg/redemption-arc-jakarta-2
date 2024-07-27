@@ -1,5 +1,6 @@
 import React from "react";
 import { Box, Table, Thead, Tbody, Tr, Th, Td, TableContainer } from "@chakra-ui/react";
+import { formatRupiah } from "@/_utils/formatter";
 
 // Define the type for withdrawal history
 interface Withdrawal {
@@ -10,9 +11,9 @@ interface Withdrawal {
 
 // Sample data
 const withdrawalHistory: Withdrawal[] = [
-  { transactionId: "TX123", date: "2024-07-01", amount: 100 },
-  { transactionId: "TX124", date: "2024-07-05", amount: 200 },
-  { transactionId: "TX125", date: "2024-07-10", amount: 150 },
+  { transactionId: "TX123", date: "20 Jul 2024", amount: 200000 },
+  { transactionId: "TX124", date: "26 Jul 2024", amount: 500000 },
+  { transactionId: "TX125", date: "27 Jul 2025", amount: 150000 },
 ];
 
 const WithdrawalHistoryTable: React.FC = () => {
@@ -36,7 +37,7 @@ const WithdrawalHistoryTable: React.FC = () => {
               <Tr key={withdrawal.transactionId}>
                 <Td>{withdrawal.transactionId}</Td>
                 <Td>{withdrawal.date}</Td>
-                <Td isNumeric>${withdrawal.amount.toFixed(2)}</Td>
+                <Td isNumeric>{formatRupiah(withdrawal.amount)}</Td>
               </Tr>
             ))}
           </Tbody>
