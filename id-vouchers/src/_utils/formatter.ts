@@ -5,4 +5,9 @@ function formatRupiah(amount: number): string {
   return `${formattedAmount} Rp`;
 }
 
-export { formatRupiah };
+function formatNumberWithLeadingZeros(num: number, length: number): string {
+  return num.toString().padStart(length, "0");
+}
+
+
+export { formatRupiah, formatNumberWithLeadingZeros };

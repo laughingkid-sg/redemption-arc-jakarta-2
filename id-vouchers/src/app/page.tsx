@@ -3,25 +3,55 @@ import { Button, Code, Flex, Image, Heading, Text } from "@chakra-ui/react";
 import VoucherSet from "@/_components/VoucherSet";
 import { IoIosInformationCircleOutline } from "react-icons/io";
 import { useWallets } from "@/_context/WalletContext";
+import { formatRupiah } from "@/_utils/formatter";
+import CameraIcon from "@/_components/CameraIcon";
 
 
 export type Wallet = {
   name: string;
   id: string;
   notes: Note[];
+  img?: string;
+  isActive: boolean
 }
 export type Note = {
   value: number;
   isUsed: boolean;
+  note?: string;
+  orderId: string;
 }
 
 export default function Home() {
 
   const minWidth = "400px";
-  const userName = "John Doe";
+  const userName = "Sedaap Food Store";
   const accNumber = "3196368384";
   const { wallets, setWallets } = useWallets();
 
+  const isAllClose = wallets.reduce((acc, item) => {
+      return acc && item.isActive == false;
+  }, true);
+
+  const openAllStore = () => {
+    setWallets(
+      wallets.map((w) => {
+        return {
+          ...w,
+          isActive: true
+        }
+      })
+    )
+  }
+  const closeAllStore = () => {
+    setWallets(
+      wallets.map((w) => {
+        return {
+          ...w,
+          isActive: false,
+        };
+      })
+    );
+  };
 
   return (
     <Flex
@@ -54,7 +84,7 @@ export default function Home() {
               <Heading
                 size={"lg"}
                 color="white">
-                {userName},
+                {userName}
               </Heading>
               <Heading
                 size={"sm"}
@@ -66,8 +96,13 @@ export default function Home() {
             <Flex
               gap={4}
               w={"100%"}>
-              <Button w={"50%"}>Top-up</Button>
-              <Button w={"50%"}>Support</Button>
+              <Button w={"50%"}>Withdrawal</Button>
+              <Button
+                w={"50%"}
+                colorScheme={isAllClose ? "green" : "red"}
+                onClick={isAllClose ? openAllStore : closeAllStore}>
+                {isAllClose ? "Open Store" : "Close Store"}
+              </Button>
             </Flex>
             <Flex
               border={1}
@@ -81,7 +116,8 @@ export default function Home() {
                 <IoIosInformationCircleOutline />
               </Flex>
               <Flex>
-                To redeem your vouchers, select the vouchers and present the QR code to merchants.
+                To redeem your cash, select the withdrawal and present the QR code to our withdrawal
+                partners.
               </Flex>
             </Flex>
           </Flex>
@@ -99,19 +135,29 @@ export default function Home() {
           alignItems={"flex-start"}
           gap={4}
           minW={minWidth}>
-          <Code fontSize={"md"}>TAP TO USE</Code>
-          {
-            wallets.map((wallet, index) => {
-              return (
-                <VoucherSet
-                  key={"VS-index"}
-                  wallet={wallet}
-                  setWallets={setWallets}
-                />
-              );
-            })
-          }
+          <Flex
+            alignItems={"center"}
+            gap={2}>
+            <Code fontSize={"md"}>Total Sales</Code>
+            <Heading fontSize={"xl"}>
+              {formatRupiah(
+                wallets.reduce((acc, item) => {
+                  return acc + item.notes.reduce((noteAcc, note) => noteAcc + note.value, 0);
+                }, 0)
+              )}
+            </Heading>
+          </Flex>
+          {wallets.map((wallet, index) => {
+            return (
+              <VoucherSet
+                key={"VS-" + index}
+                wallet={wallet}
+                setWallets={setWallets}
+              />
+            );
+          })}
         </Flex>
+        <CameraIcon />
       </Flex>
     </Flex>
   );

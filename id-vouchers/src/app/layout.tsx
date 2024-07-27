@@ -13,6 +13,9 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
+      <head>
+        <title>Id Vouchers</title>
+        </head>
       <body>
         <Providers>
           <WalletProvider>{children}</WalletProvider>

@@ -25,23 +25,43 @@ export default function VoucherSet({ wallet, setWallets }: VoucherSetProps) {
         flexDirection="row"
         w={"100%"}
         alignItems={"center"}
-        justifyContent={"space-between"}>
-        <Heading
-          size={"md"}
-          fontWeight={"normal"}>
-          {wallet.name}
-        </Heading>
-        <Flex
-          alignItems={"center"}
-          gap={2}>
-          <Heading size={"lg"}>
-            {formatRupiah(
-              wallet.notes.reduce((acc, note) => {
-                return acc + (note.isUsed ? 0 : note.value);
-              }, 0)
-            )}
+        gap={4}>
+        {wallet.img && (
+          <Flex
+            w={"100px"}
+            h={"100px"}
+            borderRadius={8}
+            overflow={"hidden"}>
+            <img
+              src={wallet.img}
+              alt={wallet.name}
+              style={{
+                filter: wallet.isActive ? "None" : "grayscale(100%)",
+                objectFit: "cover",
+                width: "100%",
+                height: "100%",
+              }}
+            />
+          </Flex>
+        )}
+        <Flex flexDirection={"column"}>
+          <Heading
+            size={"md"}
+            fontWeight={"normal"}>
+            {wallet.name}
           </Heading>
-          <MdOutlineKeyboardArrowRight />
+          <Flex
+            alignItems={"center"}
+            gap={2}>
+            <Heading size={"lg"}>
+              {formatRupiah(
+                wallet.notes.reduce((acc, note) => {
+                  return acc + (!note.isUsed ? 0 : note.value);
+                }, 0)
+              )}
+            </Heading>
+            <MdOutlineKeyboardArrowRight />
+          </Flex>
         </Flex>
       </Flex>
     </Flex>
